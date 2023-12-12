@@ -1,0 +1,15 @@
+<odoo>
+  <data>
+    <record id="limit_user_payment_options" model="ir.ui.view">
+          <field name="name">res.users.groups.payment.option</field>
+          <field name="model">res.users</field>
+          <field name="inherit_id" ref="base.user_groups_view"/>
+          <field name="arch" type="xml">
+              <xpath expr="//group[3]/group" position="inside">
+                  <field name="journal_limit_access"/>
+                  <field name="journal_ids" widget="many2many_tags" attrs="{'invisible': [('journal_limit_access', '=', False)]}" domain="[('type','in',('bank', 'cash'))]"/>
+              </xpath>
+          </field>
+      </record>
+  </data>
+</odoo>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <record model="ir.ui.view" id="vendor_aging_list_view">
+        <field name="name">vendor.aging.list.view</field>
+        <field name="model">account.move</field>
+        <field name="arch" type="xml">
+            <tree export_xlsx="1">
+                <field name="name" />
+                <field name="invoice_partner_display_name" string="vendor" />
+                <field name="amount_residual_signed" />
+                <field name="invoice_date_due" />
+                <field name="age" />
+                <field name="state" invisible="0"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

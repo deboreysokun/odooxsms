@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="account_financial_report_cashflows" model="account.financial.report">
+        <field name="name">Statement of Cash Flows</field>
+        <field name="type">sum</field>
+    </record>
+    <record id="accounting_report_cashflow_view" model="ir.ui.view">
+        <field name="name">Accounting Report</field>
+        <field name="model">accounting.report</field>
+        <field name="inherit_id" ref="accounting_pdf_reports.accounting_report_view"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <field name="beginning_balance"
+                       attrs="{'invisible': [('account_report_id','!=',%(account_financial_report_cashflows)d)]}"/>
+            </field>
+            <xpath expr="//form/group" position="before">
+                <group col="4">
+                    <field name="cashflow_period"
+                           attrs="{'invisible': [('account_report_id','!=',%(account_financial_report_cashflows)d)]}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+    <record id="action_account_report_cf" model="ir.actions.act_window">
+        <field name="name">Statement of Cash Flows</field>
+        <field name="res_model">accounting.report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="accounting_pdf_reports.accounting_report_view"/>
+        <field name="target">new</field>
+        <field name="context" eval="{
+            'default_account_report_id':ref('a2a_statement_of_cashflow.account_financial_report_cashflows'),
+            'default_date_from': time.strftime('%Y-01-01'),
+            'default_enable_filter':True,
+            'default_label_filter': 'Previous Period',
+            'default_filter_cmp': 'filter_date',
+            'default_date_from_cmp': time.strftime('%Y-01-01'),
+
+            }"/>
+    </record>
+
+    <menuitem id="menu_account_report_cf"
+              name="Statement of Cash Flows"
+              sequence="6"
+              action="action_account_report_cf"
+              parent="accounting_pdf_reports.menu_finance_legal_statement"
+              groups="account.group_account_user"/>
+
+</odoo>

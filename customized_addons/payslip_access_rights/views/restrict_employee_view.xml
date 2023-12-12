@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="hr_employee_restrict_view">
+        <field name="name">hr.employee.form.view</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='personal_information']" position="attributes">
+                <attribute name="groups">payslip_access_rights.private_info_employee</attribute>
+            </xpath>
+            <xpath expr="//page[@name='hr_settings']" position="attributes">
+                <attribute name="groups">payslip_access_rights.private_info_employee</attribute>
+            </xpath>
+        </field>
+    </record>
+
+      <record id="view_hr_employee_form_remove_edit" model="ir.ui.view">
+        <field name="name">view.hr.employee.form.remove.edit</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="groups_id" eval="[(4,ref('hr.group_hr_user'))]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="attributes">
+                <attribute name="edit">false</attribute>
+                <attribute name="create">false</attribute>
+
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_hr_employee_form_remove_edit_mananger" model="ir.ui.view">
+        <field name="name">view.hr.employee.form.remove.edit</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="groups_id" eval="[(4,ref('hr.group_hr_manager')), (4, ref('payslip_access_rights.private_info_employee'))]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="attributes">
+                <attribute name="edit">true</attribute>
+                <attribute name="create">true</attribute>
+
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_hr_employee_tree_remove_edit_create_manager" model="ir.ui.view">
+        <field name="name">view.hr.employee.tree.remove.edit.create</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_tree"/>
+        <field name="groups_id" eval="[(4,ref('hr.group_hr_manager')), (4, ref('payslip_access_rights.private_info_employee'))]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="create">true</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_hr_employee_tree_remove_edit_create" model="ir.ui.view">
+        <field name="name">view.hr.employee.tree.remove.edit.create</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_tree"/>
+        <field name="groups_id" eval="[(4,ref('hr.group_hr_user'))]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="create">false</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_hr_employee_kanban_remove_edit_create" model="ir.ui.view">
+        <field name="name">view.hr.employee.kanban.remove.edit.create</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.hr_kanban_view_employees"/>
+        <field name="groups_id" eval="[(4,ref('hr.group_hr_user'))]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//kanban" position="attributes">
+                <attribute name="create">false</attribute>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="view_hr_employee_kanban_remove_edit_create_manager" model="ir.ui.view">
+        <field name="name">view.hr.employee.kanban.remove.edit.create</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.hr_kanban_view_employees"/>
+        <field name="groups_id" eval="[(4,ref('hr.group_hr_manager')), (4, ref('payslip_access_rights.private_info_employee'))]"/>
+
+        <field name="arch" type="xml">
+            <xpath expr="//kanban" position="attributes">
+                <attribute name="create">true</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Filtering to see current logged in user-->
+
+    <record id="hr.view_employee_filter" model="ir.ui.view">
+        <field name="name">hr.employee.search</field>
+        <field name="model">hr.employee</field>
+        <field name="arch" type="xml">
+            <search string="Employees">
+                <field name="name" string="Employee" filter_domain="['|', ('work_email', 'ilike', self), ('name', 'ilike', self)]"/>
+                <field name="user_id" invisible="1"/>
+                <field name="category_ids" groups="hr.group_hr_user"/>
+                <field name="job_id"/>
+                <separator/>
+                <filter string="Unread Messages" name="message_needaction" domain="[('message_needaction', '=', True)]"/>
+                <separator/>
+                <filter invisible="1" string="Late Activities" name="activities_overdue"
+                    domain="[('activity_ids.date_deadline', '&lt;', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter invisible="1" string="Today Activities" name="activities_today"
+                    domain="[('activity_ids.date_deadline', '=', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter invisible="1" string="Future Activities" name="activities_upcoming_all"
+                    domain="[('activity_ids.date_deadline', '&gt;', context_today().strftime('%Y-%m-%d'))]"/>
+                <separator/>
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_manager" string="Manager" domain="[]" context="{'group_by': 'parent_id'}"/>
+                    <filter name="group_department" string="Department" domain="[]" context="{'group_by': 'department_id'}"/>
+                    <filter name="group_job" string="Job" domain="[]" context="{'group_by': 'job_id'}"/>
+                </group>
+                <searchpanel>
+                    <field name="company_id" groups="base.group_multi_company" icon="fa-building"/>
+                    <field name="department_id" icon="fa-users"/>
+                </searchpanel>
+            </search>
+            </field>
+    </record>
+
+    <record id="hr.open_view_employee_list_my" model="ir.actions.act_window">
+        <field name="name">Search Filter</field>
+        <field name="context">{"search_default_user_id": uid}</field>
+    </record>
+    
+</odoo>

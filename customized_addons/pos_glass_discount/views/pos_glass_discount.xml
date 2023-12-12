@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <data>
+        <template id="pos_glass_discount" inherit_id="point_of_sale.assets">
+            <xpath expr="." position="inside">
+                <!-- Style Sheet for button -->
+                <link rel="stylesheet" href="/account/static/src/css/action_button.css"/>
+                <!-- Javascript file -->
+                <script type="text/javascript" src="/pos_glass_discount/static/src/js/pos.js"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>

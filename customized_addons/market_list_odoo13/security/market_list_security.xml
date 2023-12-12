@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+<!--        Market List: domain force rule to set records' visibility based on company field-->
+
+
+        <record model="ir.rule" id="market_list_request_rule">
+            <field name="name">Market List Request multi-company</field>
+            <field name="model_id" ref="model_market_list_request"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record model="ir.rule" id="market_list_pvk_request_rule">
+            <field name="name">Market List PVK Request multi-company</field>
+            <field name="model_id" ref="model_market_list_pvk_request"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record model="ir.rule" id="market_list_vkr_request_rule">
+            <field name="name">Market List vKirirom Request multi-company</field>
+            <field name="model_id" ref="model_market_list_general_request"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record model="ir.rule" id="market_list_a2a_request_rule">
+            <field name="name">Market List A2A Request multi-company</field>
+            <field name="model_id" ref="model_market_list_general_a2a_request"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+<!--        Purchase Order: domain force rule to set records' visibility based on company field-->
+
+        <record model="ir.rule" id="market_list_po_rule">
+            <field name="name">Market List Purchase Order multi-company</field>
+            <field name="model_id" ref="model_kr_purchase_order"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+    </data>
+</odoo>

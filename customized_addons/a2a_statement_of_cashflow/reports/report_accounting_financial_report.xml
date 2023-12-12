@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_financial_new_column" inherit_id="accounting_pdf_reports.report_financial">
+        <xpath expr="//div[hasclass('page')]/table[3]/thead/tr/th[2]" position="attributes">
+            <attribute name="t-if">data['statement_of_cashflow_report_id']!=data['account_report_id'][0]</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('page')]/table[3]/thead/tr/th[3]" position="attributes">
+            <attribute name="t-if">data['statement_of_cashflow_report_id']!=data['account_report_id'][0]</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('page')]/table[3]/thead/tr" position="inside">
+            <th class="text-right" t-if="data['statement_of_cashflow_report_id']==data['account_report_id'][0]">Variance</th>
+        </xpath>
+        <xpath expr="//div[hasclass('page')]/table[3]/tbody/tr/t/td[2]" position="attributes">
+            <attribute name="t-if">data['statement_of_cashflow_report_id']!=data['account_report_id'][0]</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('page')]/table[3]/tbody/tr/t/td[3]" position="attributes">
+            <attribute name="t-if">data['statement_of_cashflow_report_id']!=data['account_report_id'][0]</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('page')]/table[3]/tbody/tr/t" position="inside">
+            <td class="text-right" t-if="data['statement_of_cashflow_report_id']==data['account_report_id'][0]">
+                <span t-att-style="style" t-esc="a.get('variance')"
+                      t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+            </td>
+        </xpath>
+    </template>
+</odoo>

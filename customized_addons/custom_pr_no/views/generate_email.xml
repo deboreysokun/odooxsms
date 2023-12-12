@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data noupdate="1">
+        <!--Approver Email template for Purchase Request-->
+        <template id="mail_notification_paynow_request" inherit_id="mail.mail_notification_paynow"
+                name="Mail: Pay Now mail notification template">
+            <xpath expr="//t[@t-set='access_name']" position="after">
+                <t t-if="record._name == 'purchase.request'">
+                    <t t-if="record.state in ('draft', 'sent')">
+                        <t t-set="access_name">Request</t>
+                        <t t-set="share_url" t-value="record._get_share_url(redirect=True, signup_partner=notification_is_customer, share_token=notification_is_customer)"/>
+                    </t>
+                </t>
+            </xpath>
+        </template>
+        <record id="send_email_template_purchase_request_approver" model="mail.template">
+            <field name="name">Purchase Request Approver: Send by email</field>
+            <field name="model_id" ref="purchase_request.model_purchase_request"/>
+            <field name="subject">${object.company_id.name} Purchase Request Approver (Ref ${object.name or 'n/a' })</field>
+            <field name="partner_to">${object.assigned_to.name}</field>
+            <field name="body_html" type="xml">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear ${object.assigned_to.name}<br/><br/>
+                        You have been assigned to Purchase Request <strong>${(object.name or '').replace('/','-')}</strong> as the Approver
+                        from ${object.company_id.name}.
+                        <br /><br />
+                        Here is in attachment a purchase request <strong>${object.name}</strong>
+                        <br/><br/>
+                        If you have any questions, Please do not hesitate to contact us.
+                        <br/><br/>
+                        <br/><br/>
+                    </p>
+                </div>
+            </field>
+            <field name="report_template" ref="po_pr_rfq_report.pr_report_customize_view"/>
+            <field name="report_name">PR_${(object.name or '').replace('/','_')}</field>
+            <field name="lang">${object.assigned_to.lang}</field>
+            <field name="user_signature" eval="False"/>
+            <field name="auto_delete" eval="True"/>
+        </record>
+    </data>
+</odoo>

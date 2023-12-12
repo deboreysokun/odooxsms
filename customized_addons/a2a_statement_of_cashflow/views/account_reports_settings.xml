@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_cashflow_period_form" model="ir.ui.view">
+        <field name="name">cashflow.period.form</field>
+        <field name="model">cashflow.period</field>
+        <field name="arch" type="xml">
+            <form string="Cashflow Period">
+                <group col="4">
+                    <field name="name"/>
+                </group>
+                <group col="4">
+                    <field name="account_report_id" domain="[('parent_id','=',False)]"/>
+                    <field name="target_move" widget="radio"/>
+                    <field name="enable_filter"/>
+                    <field name="debit_credit" attrs="{'invisible': [('enable_filter','=',True)]}"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                </group>
+                <group>
+                    <notebook tabpos="up" colspan="4">
+                        <page string="Comparison" name="comparison"
+                              attrs="{'invisible': [('enable_filter','=',False)]}">
+                            <group>
+                                <field name="label_filter" attrs="{'required': [('enable_filter', '=', True)]}"/>
+                                <field name="filter_cmp"/>
+                            </group>
+                            <group string="Dates" attrs="{'invisible':[('filter_cmp', '!=', 'filter_date')]}">
+                                <field name="date_from_cmp" attrs="{'required':[('filter_cmp', '=', 'filter_date')]}"/>
+                                <field name="date_to_cmp" attrs="{'required':[('filter_cmp', '=', 'filter_date')]}"/>
+                            </group>
+                        </page>
+                    </notebook>
+                    <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+                    <field name="beginning_balance"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_cashflow_period_tree" model="ir.ui.view">
+        <field name="name">cashflow.period.tree</field>
+        <field name="model">cashflow.period</field>
+        <field name="arch" type="xml">
+            <tree string="Cashflow Periods">
+                <field name="name"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_cashflow_period_tree" model="ir.actions.act_window">
+        <field name="name">Cashflow Period</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">cashflow.period</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_cashflow_period_tree"/>
+    </record>
+
+    <menuitem id="menu_cashflow_period"
+              name="Cashflow Period"
+              action="action_cashflow_period_tree"
+              groups="account.group_account_user"
+              parent="accounting_pdf_reports.menu_finance_reports_settings"/>
+</odoo>

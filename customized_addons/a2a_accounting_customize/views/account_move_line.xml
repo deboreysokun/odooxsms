@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="account_move_line_form_view_inherit">
+            <field name="name">account.move.line.form.view.inherit</field>
+            <field name="model">account.move.line</field>
+            <field name="inherit_id" ref="account.view_move_line_form"/>
+            <field name="arch" type="xml">
+                <field name="debit" position="after">
+                    <field name="debit_tax_inc"/>
+                    <field name="__sum_debit_tax_inc" readonly="1" string="Debit Tax Total" groups="base.group_user"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <record id="view_customer_aging_wizard" model="ir.ui.view">
+        <field name="name">customer.aging.wizard</field>
+        <field name="model">account.move.customer.aging.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="aging_date"/>
+                <footer>
+                    <button name="action_compute_customer_aging" string="Customer Aging" type="object" class="oe_highlight"/>
+                    <button name="action_print_excel_report" string="Print Excel" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_customer_aging">
+        <field name="name">action.customer.aging</field>
+        <field name="res_model">account.move.customer.aging.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_customer_aging" name="Customer Aging" sequence="110" action="action_customer_aging" parent="account.menu_finance_receivables"/>
+</odoo>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!-- Inherit Action of hotel menu card and add default_isfooditem -->
+    <record id="hotel_restaurant.action_hotel_menucard_form" model="ir.actions.act_window">
+        <field name="name">Food Item</field>
+        <field name="res_model">hotel.menucard</field>
+        <field name="binding_view_types">form</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="context">{'default_isfooditem':1, 'default_available_in_pos':0}
+        </field>
+        <field name="search_view_id" ref="hotel_restaurant.view_hotel_menucard_search_new"/>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to Add Food Items
+            </p>
+            <p>
+                No Food Items
+            </p>
+        </field>
+    </record>
+
+    <!-- Inherit hotel folio form to add hotel menu card in service line -->
+    <record id="view_hotel_folio_form_customized" model="ir.ui.view">
+        <field name="name">hotel.folio.customized.inherit.form</field>
+        <field name="model">hotel.folio</field>
+        <field name="inherit_id" ref="hotel.view_hotel_folio_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/notebook/page/field[@name='service_line_ids']/tree/field[@name='product_id']" position="attributes">
+                <attribute name="domain">['|', ('isservice','=',True), ('isfooditem','=',True)]</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

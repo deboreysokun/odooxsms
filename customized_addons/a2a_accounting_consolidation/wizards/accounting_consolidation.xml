@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="account_consolidation" model="account.financial.report">
+        <field name="name">Consolidation</field>
+        <field name="type">sum</field>
+    </record>
+
+    <record id="accounting_report_consolidation_view" model="ir.ui.view">
+        <field name="name">Consolidation</field>
+        <field name="model">accounting.report</field>
+        <field name="inherit_id" ref="accounting_pdf_reports.accounting_report_view"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='enable_filter']" position="replace">
+                <field name="enable_filter"
+                       attrs="{'invisible': [('account_report_id','==',%(account_consolidation)d)]}"/>
+            </xpath>
+            <xpath expr="//field[@name='debit_credit']" position="replace">
+                <field name="debit_credit"
+                       attrs="{'invisible': [('account_report_id','==',%(account_consolidation)d)]}"/>
+            </xpath>
+            <xpath expr="//form/group/field[@name='target_move']" position="replace">
+                <field name="target_move" widget="radio"
+                       attrs="{'invisible': [('account_report_id','==',%(account_consolidation)d)]}"/>
+            </xpath>
+            <xpath expr="//form/group[3]" position="attributes">
+                <attribute name="invisible">[('company_id', '==', False)]</attribute>
+            </xpath>
+            <xpath expr="//form/footer/button[@name='check_report']" position="replace">
+                <button name="check_report" string="Print" type="object" default_focus="1"
+                        class="oe_highlight"
+                        attrs="{'invisible': [('account_report_id','==',%(account_consolidation)d)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_account_consolidation" model="ir.actions.act_window">
+        <field name="name">Consolidation</field>
+        <field name="res_model">accounting.report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="accounting_report_consolidation_view"/>
+        <field name="target">new</field>
+        <field name="context" eval="{'default_account_report_id':ref('account_consolidation'),}"/>
+    </record>
+
+    <menuitem id="menu_account_report_cf"
+              name="Accounting Consolidation"
+              sequence="6"
+              action="action_account_consolidation"
+              parent="accounting_pdf_reports.menu_finance_legal_statement"
+    />
+
+</odoo>

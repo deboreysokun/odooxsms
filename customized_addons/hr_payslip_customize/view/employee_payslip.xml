@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Payslip form view inheritance -->
+    <record id="view_employee_payslip_form" model="ir.ui.view">
+        <field name="name">hr.payslip.inherit</field>
+        <field name="model">hr.payslip</field>
+        <field name="inherit_id" ref="om_hr_payroll.view_hr_payslip_form"></field>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@col='4']" position="after">
+                <group>
+                    <group>
+                        <field name="additional_allowance" attrs="{'readonly': [('state',  '!=', 'draft')]}"/>
+                        <field name="exchange_rate" attrs="{'readonly': [('state',  '!=', 'draft')]}"/>
+                        <field name="remain_al" attrs="{'readonly': [('state',  '!=', 'draft')]}"/>
+                        <field name="att_bonus" attrs="{'readonly': [('state',  '!=', 'draft')]}"/>
+                        <field name="incentive" attrs="{'readonly': [('state',  '!=', 'draft')]}"/>
+                        <field name="mission" attrs="{'readonly': [('state',  '!=', 'draft')]}"/>
+                    </group>
+                    <group>
+                        <field name="ot_weekday_150" attrs="{'readonly': [('state',  '!=', 'draft')]}"/>
+                        <field name="ot_weekday_200" attrs="{'readonly': [('state',  '!=', 'draft')]}"/>
+                        <field name="ot_ph" attrs="{'readonly': [('state',  '!=', 'draft')]}"/>
+                        <field name="ot_day_off" attrs="{'readonly': [('state',  '!=', 'draft')]}"/>
+                    </group>
+                </group>
+                <group>
+                    <group>
+                        <field name="deduction" attrs="{'readonly': [('state',  '!=', 'draft')]}"/>
+                        <field name="deduction_dollar" attrs="{'readonly': [('state',  '!=', 'draft')]}"/>
+                        <field name="severance" attrs="{'readonly': [('state',  '!=', 'draft')]}"/>
+                        <field name="other" attrs="{'readonly': [('state',  '!=', 'draft')]}"/>
+                        <field name="pension" attrs="{'readonly': [('state',  '!=', 'draft')]}"/>
+                    </group>
+                    <group>
+                        <group>
+                            <label for="senior_period" string="Seniority Period"/>
+                            <div>
+                                <field name="senior_period" class="oe_inline"/>
+                                Months /
+                                <field name="senior_days" class="oe_inline"/>
+                                Days
+                            </div>
+                            <field name="senior_bonus" attrs="{'invisible': [('senior_bonus_manual',  '=', True)]}"/>
+                            <field name="senior_bonus_input" attrs="{'invisible': [('senior_bonus_manual',  '=', False)], 'readonly': [('state',  '!=', 'draft')]}"/>
+                            <field name="senior_months" attrs="{'readonly': [('state',  '!=', 'draft')]}"/>
+                            <field name="senior_payment" attrs="{'readonly': [('state',  '!=', 'draft')]}"/>
+                        </group>
+                        <group>
+                            <field name="senior_bonus_manual" attrs="{'readonly': [('state',  '!=', 'draft')]}"/>
+                        </group>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

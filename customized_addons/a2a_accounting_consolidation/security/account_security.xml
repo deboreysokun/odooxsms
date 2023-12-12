@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <!--    Modify Chart of account Record Rule    -->
+        <function name = "write" model = "ir.model.data">
+           <function name = "search" model = "ir.model.data">
+               <value eval = "[('module', '=', 'account'), ('name','=','account_comp_rule')]"/>
+           </function>
+           <value eval ="{'noupdate': False}"/>
+        </function>
+        <record id="account.account_comp_rule" model="ir.rule">
+            <field name="domain_force">['|', '|', ('company_id','=',False),('company_id', 'in', company_ids),('company_id', 'in', company.child_ids.ids)]</field>
+        </record>
+        <function name = "write" model = "ir.model.data">
+           <function name = "search" model = "ir.model.data">
+               <value eval = "[('module', '=', 'account'), ('name','=','account_comp_rule')]"/>
+           </function>
+           <value eval ="{'noupdate': True}"/>
+        </function>
+        <!--    Modify Journal Entry Record Rule    -->
+        <function name = "write" model = "ir.model.data">
+           <function name = "search" model = "ir.model.data">
+               <value eval = "[('module', '=', 'account'), ('name','=','account_move_comp_rule')]"/>
+           </function>
+           <value eval ="{'noupdate': False}"/>
+        </function>
+        <record id="account.account_move_comp_rule" model="ir.rule">
+            <field name="domain_force">['|', '|', ('company_id','=',False),('company_id', 'in', company_ids),('company_id', 'in', company.child_ids.ids)]</field>
+        </record>
+        <function name = "write" model = "ir.model.data">
+           <function name = "search" model = "ir.model.data">
+               <value eval = "[('module', '=', 'account'), ('name','=','account_move_comp_rule')]"/>
+           </function>
+           <value eval ="{'noupdate': True}"/>
+        </function>
+        <!--    Modify Journal Item Record Rule    -->
+        <function name = "write" model = "ir.model.data">
+           <function name = "search" model = "ir.model.data">
+               <value eval = "[('module', '=', 'account'), ('name','=','account_move_line_comp_rule')]"/>
+           </function>
+           <value eval ="{'noupdate': False}"/>
+        </function>
+        <record id="account.account_move_line_comp_rule" model="ir.rule">
+            <field name="domain_force">['|', '|', ('company_id','=',False),('company_id', 'in', company_ids),('company_id', 'in', company.child_ids.ids)]</field>
+        </record>
+        <function name = "write" model = "ir.model.data">
+           <function name = "search" model = "ir.model.data">
+               <value eval = "[('module', '=', 'account'), ('name','=','account_move_line_comp_rule')]"/>
+           </function>
+           <value eval ="{'noupdate': True}"/>
+        </function>
+
+        <!--    Modify Tax Record Rule    -->
+        <function name = "write" model = "ir.model.data">
+           <function name = "search" model = "ir.model.data">
+               <value eval = "[('module', '=', 'account'), ('name','=','tax_comp_rule')]"/>
+           </function>
+           <value eval ="{'noupdate': False}"/>
+        </function>
+        <record id="account.tax_comp_rule" model="ir.rule">
+            <field name="domain_force">['|', '|', ('company_id','=',False),('company_id', 'in', company_ids),('company_id', 'in', company.child_ids.ids)]</field>
+        </record>
+        <function name = "write" model = "ir.model.data">
+           <function name = "search" model = "ir.model.data">
+               <value eval = "[('module', '=', 'account'), ('name','=','tax_comp_rule')]"/>
+           </function>
+           <value eval ="{'noupdate': True}"/>
+        </function>
+
+        <!--    Modify Journal Record Rule    -->
+        <function name = "write" model = "ir.model.data">
+           <function name = "search" model = "ir.model.data">
+               <value eval = "[('module', '=', 'account'), ('name','=','journal_comp_rule')]"/>
+           </function>
+           <value eval ="{'noupdate': False}"/>
+        </function>
+        <record id="account.journal_comp_rule" model="ir.rule">
+            <field name="domain_force">['|', '|', ('company_id','=',False),('company_id', 'in', company_ids),('company_id', 'in', company.child_ids.ids)]</field>
+        </record>
+        <function name = "write" model = "ir.model.data">
+           <function name = "search" model = "ir.model.data">
+               <value eval = "[('module', '=', 'account'), ('name','=','journal_comp_rule')]"/>
+           </function>
+           <value eval ="{'noupdate': True}"/>
+        </function>
+
+        <!--    Modify Payment Record Rule    -->
+        <function name = "write" model = "ir.model.data">
+           <function name = "search" model = "ir.model.data">
+               <value eval = "[('module', '=', 'account'), ('name','=','account_payment_comp_rule')]"/>
+           </function>
+           <value eval ="{'noupdate': False}"/>
+        </function>
+        <record id="account.account_payment_comp_rule" model="ir.rule">
+            <field name="domain_force">['|', '|', ('company_id','=',False),('company_id', 'in', company_ids),('company_id', 'in', company.child_ids.ids)]</field>
+        </record>
+        <function name = "write" model = "ir.model.data">
+           <function name = "search" model = "ir.model.data">
+               <value eval = "[('module', '=', 'account'), ('name','=','account_payment_comp_rule')]"/>
+           </function>
+           <value eval ="{'noupdate': True}"/>
+        </function>
+
+        <!--    Modify Payment Record Rule    -->
+        <function name = "write" model = "ir.model.data">
+           <function name = "search" model = "ir.model.data">
+               <value eval = "[('module', '=', 'account'), ('name','=','account_payment_comp_rule')]"/>
+           </function>
+           <value eval ="{'noupdate': False}"/>
+        </function>
+        <record id="account.account_payment_comp_rule" model="ir.rule">
+            <field name="domain_force">['|', '|', ('company_id','=',False),('company_id', 'in', company_ids),('company_id', 'in', company.child_ids.ids)]</field>
+        </record>
+        <function name = "write" model = "ir.model.data">
+           <function name = "search" model = "ir.model.data">
+               <value eval = "[('module', '=', 'account'), ('name','=','account_payment_comp_rule')]"/>
+           </function>
+           <value eval ="{'noupdate': True}"/>
+        </function>
+
+        <!--    Modify res.partner Record Rule    -->
+        <function name = "write" model = "ir.model.data">
+           <function name = "search" model = "ir.model.data">
+               <value eval = "[('module', '=', 'base'), ('name','=','res_partner_rule')]"/>
+           </function>
+           <value eval ="{'noupdate': False}"/>
+        </function>
+        <record id="base.res_partner_rule" model="ir.rule">
+            <field name="domain_force">['|', '|','|', ('partner_share', '=', False), ('company_id', 'in', company_ids), ('company_id', '=', False), ('company_id', 'in', company.child_ids.ids)]</field>
+        </record>
+        <function name = "write" model = "ir.model.data">
+           <function name = "search" model = "ir.model.data">
+               <value eval = "[('module', '=', 'base'), ('name','=','res_partner_rule')]"/>
+           </function>
+           <value eval ="{'noupdate': True}"/>
+        </function>
+</odoo>

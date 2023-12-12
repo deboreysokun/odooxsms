@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+    <report
+        id="report_customer_aging_xlsx"
+        model="account.move.customer.aging.wizard"
+        string="Print to XLSX"
+        report_type="xlsx"
+        name="accounting_customer_aging.report_customer_aging_xls"
+        file="Customer Aging"
+        attachment_use="False"
+    />
+    <report
+        id="report_vendor_aging_xlsx"
+        model="account.move.vendor.aging.wizard"
+        string="Print to XLSX"
+        report_type="xlsx"
+        name="accounting_customer_aging.report_vendor_aging_xls"
+        file="Vendor Aging"
+        attachment_use="False"
+    />
+
+</odoo>

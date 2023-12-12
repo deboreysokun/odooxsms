@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_combined_order_line" model="ir.actions.act_window">
+            <field name="name">Purchase and Market List order line</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">po.mklpo.combined.order.line</field>
+            <field name="binding_view_types">form</field>
+            <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="purchase_n_market_list_line_view_tree" model="ir.ui.view">
+        <field name="name">Purchase and Market List order line tree</field>
+        <field name="model">po.mklpo.combined.order.line</field>
+        <field name="arch" type="xml">
+            <tree string="Purchase and Market List Order Line">
+                <field name="name"/>
+                <field name="date_order"/>
+                <field name="product_id"/>
+                <field name="product_qty"/>
+                <field name="product_uom"/>
+                <field name="price_unit"/>
+                <field name="sub_total"/>
+                <field name="analytic_acc"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <menuitem id="purchase_n_market_list_order_line"
+              name="Purchase and Market List Order Line"
+              sequence="4"
+              parent="market_list_odoo13.market_list_purchase_order_menu_root"
+              action="action_combined_order_line"
+    />
+</odoo>

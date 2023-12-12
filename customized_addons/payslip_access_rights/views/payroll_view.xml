@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="payroll_hr_employee_view_form_inhertited" model="ir.ui.view">
+        <field name="name">payroll.hr.employee.view.form</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="om_hr_payroll.payroll_hr_employee_view_form"/>
+        <field name="arch" type="xml">
+            <button name="%(om_hr_payroll.act_hr_employee_payslip_list)d" position="attributes">
+                <attribute name="groups">om_hr_payroll.group_hr_payroll_user,base.group_user</attribute>
+            </button>
+        </field>
+    </record>
+
+</odoo>

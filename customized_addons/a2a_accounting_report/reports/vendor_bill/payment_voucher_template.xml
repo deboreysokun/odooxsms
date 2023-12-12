@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!--payment voucher PDF-->
+    <template id="a2a_payment_voucher_header">
+        <div class="row">
+            <div class="col-1" style="margin-left: 3em;">
+                <img t-if="doc.company_id.name == 'A2A Town (Cambodia) Co., Ltd.'"
+                     t-att-src="image_data_uri(doc.company_id.logo)"
+                     style="width:60px " alt="logo"/>
+                <img t-if="doc.company_id.name == 'A2A Development Co.,Ltd'"
+                     t-att-src="image_data_uri(doc.company_id.logo)"
+                     style="width:100px" alt="logo"/>
+                <img t-if="doc.company_id.name == 'Kirirom Digital (Cambodia) Co,.Ltd'"
+                     t-att-src="image_data_uri(doc.company_id.logo)"
+                     style="width:90px; padding-top:20px" alt="logo"/>
+                <img t-if="doc.company_id.name == 'Casstack Co., Ltd.'"
+                     t-att-src="image_data_uri(doc.company_id.logo)"
+                     style="width:90px; padding-top:20px" alt="logo"/>
+                <img t-if="doc.company_id.name == 'Jobify (Cambodia) Co,.Ltd'"
+                     t-att-src="image_data_uri(doc.company_id.logo)"
+                     style="width:90px; padding-top:20px" alt="logo"/>
+                <img t-if="doc.company_id.name == 'KIT Management Co., Ltd'"
+                     t-att-src="image_data_uri(doc.company_id.logo)"
+                     style="width:90px; padding-top:20px" alt="logo"/>
+                <img t-if="doc.company_id.name == 'Quadusk Pte.,Ltd'"
+                     t-att-src="image_data_uri(doc.company_id.logo)"
+                     style="width:160px; padding-top:0px" alt="logo"/>
+                <img t-if="doc.company_id.name == 'vKirirom Pte.'"
+                     t-att-src="image_data_uri(doc.company_id.logo)"
+                     style="width:90px; padding-top:20px" alt="logo"/>
+            </div>
+            <div class="col-8" style="text-align: center;margin-top: 1em; margin-left: 1em;">
+                <div style="line-height: 10%; ">
+                    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Moul"/>
+                    <t t-if="doc.company_id.name == 'A2A Development Co.,Ltd'">
+                        <h4 style="text-align: center; font-size: 25px;font-family: 'Moul', Moul;">
+                            អេ២អេ ឌីវេលឡុបម៉ិន ខូ.,អិលធីឌី
+                        </h4>
+                        <h4 style="text-align: center;font-weight: bold;font-size: 25px;font-family: Arial;">
+                            A2A Development Co.,Ltd
+                        </h4>
+                    </t>
+                    <t t-if="doc.company_id.name == 'A2A Town (Cambodia) Co., Ltd.'">
+                        <h4 style="text-align: center; font-size: 25px;font-family: 'Moul', Moul;">
+                            អេ២អេ ថោន (ខេមបូឌា) ខូ.,អិលធីឌី.
+                        </h4>
+                        <h4 style="text-align: center;font-weight: bold;font-size: 25px;font-family: Arial;">
+                            A2A Town (Cambodia) Co., Ltd.
+                        </h4>
+                    </t>
+                    <t t-if="doc.company_id.name == 'Casstack Co., Ltd.'">
+                        <h4 style="text-align: center; font-size: 25px;font-family: 'Moul', Moul;">
+                            កាសស្តេក ឯ.ក
+                        </h4>
+                        <h4 style="text-align: center;font-weight: bold;font-size: 25px;font-family: Arial;">
+                            Casstack Co., Ltd.
+                        </h4>
+                    </t>
+                    <t t-if="doc.company_id.name == 'Jobify (Cambodia) Co,.Ltd'">
+                        <h4 style="text-align: center; font-size: 25px;font-family: 'Moul', Moul;">
+                            ចបប៊ីហ្វាយ (ខេមបូឌា) ឯ.ក
+                        </h4>
+                        <h4 style="text-align: center;font-weight: bold;font-size: 25px;font-family: Arial;">
+                            Jobify (Cambodia) Co,.Ltd
+                        </h4>
+                    </t>
+                    <t t-if="doc.company_id.name == 'Kirirom Digital (Cambodia) Co,.Ltd'">
+                        <h4 style="text-align: center; font-size: 25px;font-family: 'Moul', Moul;">
+                            គិរីរម្យ ឌីជីធល (ខេមបូឌា) ឯ.ក
+                        </h4>
+                        <h4 style="text-align: center;font-weight: bold;font-size: 25px;font-family: Arial;">
+                            Kirirom Digital (Cambodia) Co,.Ltd
+                        </h4>
+                    </t>
+                    <t t-if="doc.company_id.name == 'KIT Management Co., Ltd'">
+                        <h4 style="text-align: center; font-size: 25px;font-family: 'Moul', Moul;">
+                            គីត មេនេចម៉ិន ឯ.ក
+                        </h4>
+                        <h4 style="text-align: center;font-weight: bold;font-size: 25px;font-family: Arial;">
+                            KIT Management Co.,Ltd
+                        </h4>
+                    </t>
+                    <t t-if="doc.company_id.name == 'Quadusk Pte.,Ltd'">
+                        <h4 style="text-align: center;font-weight: bold;font-size: 25px;font-family: Arial;">
+                            Quadusk Pte.,Ltd
+                        </h4>
+                    </t>
+                    <t t-if="doc.company_id.name == 'vKirirom Japan Inc.'">
+                        <h4 style="text-align: center;font-weight: bold;font-size: 25px;font-family: Arial;">
+                            Vkirirom Japan Inc
+                        </h4>
+                    </t>
+                    <t t-if="doc.company_id.name == 'vKirirom Pte.'">
+                        <h4 style="text-align: center;font-weight: bold;font-size: 25px;font-family: Arial;">
+                            Vkirirom Pte
+                        </h4>
+                    </t>
+                </div>
+                <div style="padding-top:10px;">
+                    <t t-if="doc.company_id.name == 'A2A Town (Cambodia) Co., Ltd.'">
+                        <p style="text-align: center;font-size: 10px; weight: 100%;">
+                            <t t-esc="doc.company_id.street"/>
+                            <br></br>
+                            Tel:<t t-esc="doc.company_id.phone"/>,
+                            Web:
+                            <t t-esc="doc.company_id.website"/>
+                        </p>
+                    </t>
+                    <t t-if="doc.company_id.name == 'A2A Development Co.,Ltd'">
+
+                        <p style="text-align: center;font-size: 10px; weight: 50%;font-family: Arial;">
+                            <t t-esc="doc.company_id.street"/>,
+                            <br></br>
+                            Tel:
+                            <t t-esc="doc.company_id.phone"/>
+                        </p>
+                    </t>
+                    <t t-if="doc.company_id.name == 'Kirirom Digital (Cambodia) Co,.Ltd'">
+                        <p style="text-align: center;font-size: 10px;">
+                            <t t-esc="doc.company_id.street"/>
+                            <br></br>
+                            Web:
+                            <t t-esc="doc.company_id.website"/>
+                        </p>
+                    </t>
+                    <t t-if="doc.company_id.name == 'Casstack Co., Ltd.'">
+                        <p style="text-align: center;font-size: 10px; weight: 100%;">
+                            <t t-esc="doc.company_id.street"/>
+                        </p>
+                    </t>
+                    <t t-if="doc.company_id.name == 'Jobify (Cambodia) Co,.Ltd'">
+                        <p style="text-align: center;font-size: 10px; weight: 50%;font-family: Arial;">
+                            <t t-esc="doc.company_id.street"/>
+                            <br></br>
+                            Tel:<t t-esc="doc.company_id.phone"/>,
+                            Email:
+                            <t t-esc="doc.company_id.email"/>
+                        </p>
+                    </t>
+                    <t t-if="doc.company_id.name == 'KIT Management Co., Ltd'">
+                        <p style="text-align: center;font-size: 10px; weight: 50%;font-family: Arial;">
+                            <t t-esc="doc.company_id.street"/>
+                        </p>
+                    </t>
+                    <t t-if="doc.company_id.name == 'Quadusk Pte.,Ltd'">
+                        <p style="text-align: center;font-size: 10px; weight: 50%;font-family: Arial;">
+                            <t t-esc="doc.company_id.street"/>
+                            <br></br>
+                            Tel:<t t-esc="doc.company_id.phone"/>,
+                            Email:<t t-esc="doc.company_id.email"/>,
+                            Website:
+                            <t t-esc="doc.company_id.website"/>
+                        </p>
+                    </t>
+                    <t t-if="doc.company_id.name == 'vKirirom Japan Inc.'">
+                        <p style="text-align: center;font-size: 10px; weight: 50%;font-family: Arial;">
+                            <t t-esc="doc.company_id.street"/>
+                        </p>
+                    </t>
+                    <t t-if="doc.company_id.name == 'vKirirom Pte.'">
+                        <p style="text-align: center;font-size: 10px; weight: 50%;font-family: Arial;">
+                            <t t-esc="doc.company_id.street"/>
+                            <t t-esc="doc.company_id.city"/>
+                            <t t-esc="doc.company_id.zip"/>
+                            <t t-esc="doc.company_id.country_id.name"/>
+                        </p>
+                    </t>
+
+
+                </div>
+
+            </div>
+        </div>
+
+    </template>
+
+    <template id="a2a_payment_voucher_footer">
+        <!--signature row-->
+        <div class="footer">
+            <div class="last-page">
+                <div style="height: 150px; position: relative;">
+                    <table style="position: absolute; bottom: 0; width: 100%; text-align: center; font-family: Arial; font-size: 12px; ">
+                        <tr>
+                            <td style="width: 20%;padding: 2%;">
+                                <div style="border-top: 1px solid black; font-weight: normal;">Prepared by</div>
+                            </td>
+                            <td style="width: 20%;padding: 2%;">
+                                <div style="border-top: 1px solid black; font-weight: normal;">Checked by</div>
+                            </td>
+                            <td style="width: 20%;padding: 2%;">
+                                <div style="border-top: 1px solid black; font-weight: normal;">Reviewed by</div>
+                            </td>
+                            <td style="width: 20%;padding: 2%;">
+                                <div style="border-top: 1px solid black; font-weight: normal;">Approved by</div>
+                            </td>
+                            <td style="width: 20%;padding: 2%;">
+                                <div style="border-top: 1px solid black; font-weight: normal;">Received by</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 20%; text-align: center; font-weight: bold;"></td>
+                            <td style="width: 20%; text-align: center; font-weight: bold;"></td>
+                            <td style="width: 20%; text-align: center; font-weight: bold;">
+                                <p>Ton Ratana</p>
+                            </td>
+                            <td style="width: 20%; text-align: center; font-weight: bold;"></td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </template>
+    <template id="a2a_payment_voucher_custom_template_layout">
+        <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+             t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <t t-call="a2a_accounting_report.a2a_payment_voucher_header"/>
+            <t t-raw="0"/>
+            <t t-call="a2a_accounting_report.a2a_payment_voucher_footer"/>
+        </div>
+    </template>
+
+
+    <!--Vkr-->
+    <template id="vkr_payment_voucher_header">
+        <div class="row">
+            <div class="col-2">
+                <img src="/a2a_accounting_report/static/img/vKIRIROM1.png" style="width:10em; margin-left: 3em;"
+                     alt="logo"/>
+            </div>
+            <div class="col-8" style="text-align: center;margin-top: 1em; ">
+                <div style="line-height: 10%; ">
+                    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Moul"/>
+                    <h4 style="text-align: center; font-size: 25px;font-family: 'Moul', Moul;color:#046307;">
+                        <span style="color:#FF6700; font-family: 'Moul', Moul;">វី</span>គិរីរម្យផាញរីស៊ត
+                    </h4>
+                    <h4 style="text-align: center;font-size: 25px;font-family: Arial;color:#046307;">
+                        <span style="color:#FF6700;">v</span>Kirirom Pine Resort
+                    </h4>
+                </div>
+                <div>
+                    <p style="text-align: center;font-size: 10px;font-family: Arial; weight: 100%;">
+                        vKirirom Pine Resort,Phum Thmey village,ChomBok commune
+                        <br></br>
+                        Phnom Srouch District, Kompong Speu Province, Kingdom of Cambodia
+                        <br></br>
+                        Tel: +855 (0)78 777 284, Website:
+                        <a href="www.vkirirom.com">www.vkirirom.com</a>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </template>
+
+
+    <template id="vkr_payment_voucher_footer">
+        <!--signature row-->
+        <div class="footer">
+            <div class="last-page">
+                <div style="height: 150px; position: relative;">
+                    <table style="position: absolute; bottom: 0; width: 100%; text-align: center; font-family: Arial; font-size: 12px; ">
+                        <tr>
+                            <td style="width: 20%;padding: 2%;">
+                                <div style="border-top: 1px solid black; font-weight: normal;">Prepared by</div>
+                            </td>
+                            <td style="width: 20%;padding: 2%;">
+                                <div style="border-top: 1px solid black; font-weight: normal;">Checked by</div>
+                            </td>
+                            <td style="width: 20%;padding: 2%;">
+                                <div style="border-top: 1px solid black; font-weight: normal;">Reviewed by</div>
+                            </td>
+                            <td style="width: 20%;padding: 2%;">
+                                <div style="border-top: 1px solid black; font-weight: normal;">Approved by</div>
+                            </td>
+                            <td style="width: 20%;padding: 2%;">
+                                <div style="border-top: 1px solid black; font-weight: normal;">Received by</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 20%; text-align: center; font-weight: bold;"></td>
+                            <td style="width: 20%; text-align: center; font-weight: bold;"></td>
+                            <td style="width: 20%; text-align: center; font-weight: bold;">
+                                <p>Ton Ratana</p>
+                            </td>
+                            <td style="width: 20%; text-align: center; font-weight: bold;"></td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </template>
+
+    <template id="vkr_payment_voucher_custom_template_layout">
+        <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+             t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <t t-call="a2a_accounting_report.vkr_payment_voucher_header"/>
+            <t t-raw="0"/>
+            <t t-call="a2a_accounting_report.vkr_payment_voucher_footer"/>
+        </div>
+    </template>
+</odoo>

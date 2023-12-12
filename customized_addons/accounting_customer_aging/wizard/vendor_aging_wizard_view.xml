@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <record id="view_vendor_aging_wizard" model="ir.ui.view">
+        <field name="name">vendor.aging.wizard</field>
+        <field name="model">account.move.vendor.aging.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="aging_date"/>
+                <footer>
+                    <button name="action_compute_vendor_aging" string="Vendor Aging" type="object" class="oe_highlight"/>
+                    <button name="action_print_excel_report" string="Print Excel" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_vendor_aging">
+        <field name="name">action.vendor.aging</field>
+        <field name="res_model">account.move.vendor.aging.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_vendor_aging" name="Vendor Aging" sequence="200" action="action_vendor_aging" parent="account.menu_finance_payables"/>
+</odoo>

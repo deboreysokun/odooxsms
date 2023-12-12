@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_account_consolidation_menu" model="ir.actions.server">
+            <field name="name">Partner To Eliminate</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="state">code</field>
+            <field name="code">
+                action = {
+                "name": "Partner To Eliminate",
+                "view_mode": "kanban,form",
+                "res_model": "res.partner",
+                "domain": ['|', ('id', 'in', model.companies_contact()), ('parent_id', 'in',
+                model.companies_contact())],
+                "type": "ir.actions.act_window",
+                }
+            </field>
+        </record>
+
+        <menuitem
+                id="account_consolidation_menu"
+                name="Consolidation"
+                parent="account.menu_finance_configuration"
+                sequence="6"
+                groups="account.group_account_manager"/>
+
+        <menuitem
+                id="partner_to_eliminate_menu"
+                name="Partner to Eliminate"
+                action="action_account_consolidation_menu"
+                parent="account_consolidation_menu"
+                sequence="1"
+                groups="account.group_account_user"/>
+    </data>
+</odoo>

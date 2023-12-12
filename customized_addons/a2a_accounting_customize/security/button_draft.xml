@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="cancel_post_invoice" model="res.groups">
+        <field name="name">Cancel Posted Invoice</field>
+        <field name="comment">Able to cancel posted invoice</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+</odoo>

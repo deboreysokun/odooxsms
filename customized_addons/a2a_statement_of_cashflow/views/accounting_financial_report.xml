@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_account_financial_report_form_customize" model="ir.ui.view">
+        <field name="name">account.financial.report.form.customize</field>
+        <field name="model">account.financial.report</field>
+        <field name="inherit_id" ref="accounting_pdf_reports.view_account_financial_report_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='style_overwrite']" position="after">
+                <field name="show_parent"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_account_list_customize" model="ir.ui.view">
+        <field name="name">accout.account.list.customize</field>
+        <field name="model">account.account</field>
+        <field name="inherit_id" ref="account.view_account_list"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="editable">bottom</attribute>
+            </xpath>
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="cashflow_logic"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_form_customize" model="ir.ui.view">
+        <field name="name">account.account.form.customize</field>
+        <field name="model">account.account</field>
+        <field name="inherit_id" ref="account.view_account_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='deprecated']" position="after">
+                <field name="cashflow_logic"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Payslip form view inheritance -->
+    <record id="view_employee_payslip_form_inherit" model="ir.ui.view">
+        <field name="name">hr.payslip.inherit</field>
+        <field name="model">hr.payslip</field>
+        <field name="inherit_id" ref="om_hr_payroll.view_hr_payslip_form"></field>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_payslip_cancel']" position="replace">
+                <button string="Cancel Payslip" name="action_payslip_cancel_inherit" type="object"
+                                states="draft,hr_check,confirm,verify,done"/>
+            </xpath>
+            <xpath expr="//button[@name='action_payslip_done']" position="replace">
+                <button string="Confirm" name="action_payslip_done_inherit" type="object" states="draft" class="oe_highlight"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="market_list_sequence_view_tree" model="ir.ui.view">
+        <field name="name">market.list.location.tree</field>
+        <field name="model">market.list.location</field>
+        <field name="arch" type="xml">
+            <tree string="Locations">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="market_list_sequence_view_form" model="ir.ui.view">
+        <field name="name">market.list.location.form</field>
+        <field name="model">market.list.location</field>
+        <field name="arch" type="xml">
+            <form string="Locations">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+
+                    <group string="Operations">
+                        <group>
+                            <field name="vkr_operation_type"/>
+                            <field name="a2a_operation_type"/>
+                            <field name="source_location"/>
+                            <field name="vkr_destination"/>
+                            <field name="a2a_destination"/>
+                            <field name="sequences" widget="many2many_tags"/>
+
+                        </group>
+                        <group>
+                            <field name="company"/>
+                            <field name="isDefault"/>
+                        </group>
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_market_list_location_config" model="ir.actions.act_window">
+        <field name="name">Market List Location</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">market.list.location</field>
+        <field name="binding_view_types">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="market_list_location_config"
+              name="Market List Location"
+              sequence="2"
+              parent="market_list_configuration_menu_root"
+              action="action_market_list_location_config"
+    />
+</odoo>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates id="template" xml:space="preserve">
+    <t t-extend="Orderline">
+        <t t-jquery="ul.info-list" t-operation="append">
+            <t t-if="line.get_glass_disc() > 0">
+                With Glass Discount
+            <em>
+                <t t-esc="line.get_glass_disc()"/>
+                Unit/s
+            </em>
+            </t>
+        </t>
+    </t>
+    <t t-extend="NumpadWidget">
+        <t t-jquery="div.numpad" t-operation="prepend">
+            <button class="glass-discount" style="width: 100%;">Glass Disc</button>
+        </t>
+    </t>
+</templates>

@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+hr_payroll_employee_access,hr.payslip,om_hr_payroll.model_hr_payslip,,1,0,0,0
+hr_payroll_employee_worked_days_access,hr.payslip worked days,om_hr_payroll.model_hr_payslip_worked_days,base.group_user,1,0,0,0
+hr_payroll_employee_input_access,hr.payslip input,om_hr_payroll.model_hr_payslip_input,base.group_user,1,0,0,0
+hr_payroll_employee_lune_access,hr.payslip line,om_hr_payroll.model_hr_payslip_line,base.group_user,1,0,0,0
+
+access_hr_employee_user,hr.employee user,model_hr_employee,hr.group_hr_user,1,0,0,0 
+access_hr_employee_manager,hr.employee hr_manager,model_hr_employee,hr.group_hr_manager,1,1,1,1
+access_hr_employee_private_info,hr.employee private_info,hr.model_hr_employee,payslip_access_rights.private_info_employee,1,1,1,1

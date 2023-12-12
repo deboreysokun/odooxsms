@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data noupdate="1">
+        <!--Approver Email template for Purchase Order-->
+        <record id="send_email_template_purchase_order_approval" model="mail.template">
+            <field name="name">Purchase Order Approver: Send by email</field>
+            <field name="model_id" ref="purchase.model_purchase_order"/>
+            <field name="subject">${object.company_id.name} Purchase Order Approver (Ref ${object.name or 'n/a' })</field>
+            <field name="partner_to">${object.approver.name}</field>
+            <field name="body_html" type="xml">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear ${object.approver.name}<br/><br/>
+                        You have been assigned to Purchase Order <strong>${(object.name or '').replace('/','-')}</strong> as the Approver
+                        from ${object.company_id.name}.
+                        <br /><br />
+                        Here is in attachment a purchase order <strong>${object.name}</strong>
+                        amounting in <strong>${format_amount(object.amount_total, object.currency_id)}</strong>
+                        from ${object.company_id.name}.
+                        <br/><br/>
+                        If you have any questions, Please do not hesitate to contact us.
+                        <br/><br/>
+                        <br/><br/>
+                    </p>
+                </div>
+            </field>
+            <field name="report_template" ref="po_pr_rfq_report.rfq_report_customize_view"/>
+            <field name="report_name">PO_${(object.name or '').replace('/','_')}</field>
+            <field name="lang">${object.approver.lang}</field>
+            <field name="user_signature" eval="False"/>
+            <field name="auto_delete" eval="True"/>
+        </record>
+    </data>
+</odoo>

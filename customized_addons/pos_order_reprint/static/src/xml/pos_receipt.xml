@@ -1,0 +1,331 @@
+<templates id="template" xml:space="preserve">
+   <t t-extend="OrderReceipt">
+       <!--    Copy the original post-receipt and remove some unnecessary
+                break line and change dotted line style and some other styling    -->
+       <t t-jquery=".pos-receipt" t-operation="replace">
+           <div class="pos-receipt">
+            <t t-if='receipt.company.logo'>
+                <img class="pos-receipt-logo" t-att-src='receipt.company.logo' alt="Logo"
+                     style="max-height: 80px; width:auto;"/>
+                <br/>
+            </t>
+               <t t-if='!receipt.company.logo'>
+                <h2 class="pos-receipt-center-align">
+                    <t t-esc='receipt.company.name'/>
+                </h2>
+                   <br/>
+            </t>
+               <div class="pos-receipt-contact">
+                <t t-if='receipt.company.contact_address'>
+                    <div><t t-esc='receipt.company.contact_address' /></div>
+                </t>
+                   <t t-if='receipt.company.phone'>
+                    <div>Tel:<t t-esc='receipt.company.phone'/></div>
+                </t>
+                   <t t-if='receipt.company.vat'>
+                    <div><t t-esc='receipt.company.vat_label'/>:
+                        <t t-esc='receipt.company.vat'/></div>
+                </t>
+                   <t t-if='receipt.company.email'>
+                    <div><t t-esc='receipt.company.email' /></div>
+                </t>
+                   <t t-if='receipt.company.website'>
+                    <div><t t-esc='receipt.company.website' /></div>
+                </t>
+                   <t t-if='receipt.header_html'>
+                    <t t-raw='receipt.header_html'/>
+                </t>
+                   <t t-if='!receipt.header_html and receipt.header'>
+                    <div><t t-esc='receipt.header' /></div>
+                </t>
+                   <t t-if='receipt.cashier'>
+                    <div class='cashier'>
+                        <div>--------------------------------</div>
+                        <div>Served by <t t-esc='receipt.cashier'/></div>
+                    </div>
+                </t>
+            </div>
+               <br/>
+               <br/>
+               <!-- Orderlines -->
+
+               <div class='orderlines'>
+                <t t-foreach='receipt.orderlines' t-as='line'>
+                    <t t-set='simple'
+                       t-value='(line.discount === 0 and line.unit_name === "Units" and line.quantity === 1 and !discount_to_show and !(line.display_discount_policy == "without_discount" &amp;&amp; line.price != line.price_lst))'/>
+                    <t t-if='simple'>
+                        <div><t t-esc='line.product_name_wrapped[0]' />
+                            <span t-esc='widget.format_currency_no_symbol(line.price_display)'
+                                  class="price_display pos-receipt-right-align"/></div>
+                        <t t-call="OrderReceiptWrappedProductNameLines"/></t>
+                    <t t-if='!simple'>
+                        <div t-esc='line.product_name_wrapped[0]'/>
+                        <t t-call="OrderReceiptWrappedProductNameLines"/>
+                        <t t-if="line.display_discount_policy == 'without_discount' &amp;&amp; line.price != line.price_lst"><div class="pos-receipt-left-padding"><t t-esc="widget.format_currency_no_symbol(line.price_lst)" />->
+                            <t t-esc="widget.format_currency_no_symbol(line.price)"/></div>
+                        </t>
+                        <t t-elif='line.discount !== 0'>
+                            <div class="pos-receipt-left-padding">
+                                <t t-if="pos.config.iface_tax_included === 'total'">
+                                    <t t-esc="widget.format_currency_no_symbol(line.price_with_tax_before_discount)"/>
+                                </t>
+                                <t t-else="">
+                                    <t t-esc="widget.format_currency_no_symbol(line.price)"/>
+                                </t>
+                            </div>
+                        </t>
+                        <t t-if='line.discount !== 0'>
+                            <div class="pos-receipt-left-padding">
+                                Discount: <t t-esc='line.discount'/>%
+                            </div>
+                        </t>
+                        <div class="pos-receipt-left-padding">
+                            <t t-esc="Math.round(line.quantity * Math.pow(10, pos.dp['Product Unit of Measure'])) / Math.pow(10, pos.dp['Product Unit of Measure'])"/>
+                            <t t-if='line.unit_name !== "Units"' t-esc='line.unit_name'/>
+                            x
+                            <t t-esc='widget.format_currency_no_symbol(line.price_display_one)'/>
+                            <span class="price_display pos-receipt-right-align">
+                                <t t-esc='widget.format_currency_no_symbol(line.price_display)'/>
+                            </span>
+                        </div>
+                    </t>
+                </t>
+            </div>
+
+               <!-- Subtotal -->
+
+               <t t-set='taxincluded' t-value='Math.abs(receipt.subtotal - receipt.total_with_tax) &lt;= 0.000001'/>
+               <t t-if='!taxincluded'>
+                <hr style="border-top: dotted 1px;"/>
+                   <div>Subtotal<span t-esc='widget.format_currency(receipt.subtotal)' class="pos-receipt-right-align"/></div>
+                   <t t-foreach='receipt.tax_details' t-as='tax'>
+                    <div>
+                        <t t-esc='tax.name'/>
+                        <span t-esc='widget.format_currency_no_symbol(tax.amount)' class="pos-receipt-right-align"/>
+                    </div>
+                </t>
+            </t>
+
+               <!-- Total -->
+               <hr style="border-top: dotted 1px;"/>
+               <div class="pos-receipt-amount">
+                TOTAL
+                <span t-esc='widget.format_currency(receipt.total_with_tax)' class="pos-receipt-right-align"/>
+            </div>
+               <br/>
+
+               <!-- Payment Lines -->
+
+               <t t-foreach='paymentlines' t-as='line'>
+                <div>
+                    <t t-esc='line.name'/>
+                    <span t-esc='widget.format_currency_no_symbol(line.get_amount())' class="pos-receipt-right-align"/>
+                </div>
+            </t>
+               <br/>
+
+               <div class="pos-receipt-amount receipt-change">
+                CHANGE
+                <span t-esc='widget.format_currency(receipt.change)' class="pos-receipt-right-align"/>
+            </div>
+               <br/>
+
+               <!-- Extra Payment Info -->
+
+               <t t-if='taxincluded'>
+                <t t-foreach='receipt.tax_details' t-as='tax'>
+                    <div>
+                        <t t-esc='tax.name'/>
+                        <span t-esc='widget.format_currency_no_symbol(tax.amount)' class="pos-receipt-right-align"/>
+                    </div>
+                </t>
+                   <div>
+                    Total Taxes
+                    <span t-esc='widget.format_currency(receipt.total_tax)' class="pos-receipt-right-align"/>
+                </div>
+
+                   <div class="pos-receipt-center-align">
+                    <img t-att-src='receipt.qrcode'/>
+                </div>
+            </t>
+
+               <div class='before-footer'/>
+
+               <!-- Footer -->
+               <div t-if='receipt.footer_html' class="pos-receipt-center-align">
+                <t t-raw='receipt.footer_html'/>
+            </div>
+
+               <div t-if='!receipt.footer_html and receipt.footer' class="pos-receipt-center-align"
+                    style="white-space:pre-line">
+                <t t-esc='receipt.footer'/>
+            </div>
+               <br/>
+
+               <div class='after-footer'>
+                <t t-foreach='paymentlines' t-as='line'>
+                    <t t-if='line.ticket'>
+                        <br/>
+                        <div class="pos-payment-terminal-receipt">
+                            <t t-raw='line.ticket'/>
+                        </div>
+                    </t>
+                </t>
+            </div>
+
+               <br/>
+               <div class="pos-receipt-order-data">
+                <div><t t-esc='receipt.name' /></div>
+                   <div><t t-esc='receipt.date.localestring' /></div>
+            </div>
+
+        </div>
+       </t>
+
+       <t t-jquery=".pos-receipt .pos-receipt-contact" t-operation='replace'>
+           <div class="pos-receipt-contact">
+                <t t-if="pos.config.name">
+                    <div style="font-size: 150%; font: bold;">
+                        <t t-esc="pos.config.name"/>
+                    </div>
+                </t>
+               <t t-if='receipt.reprint === true or order.reprint === true'>
+                    <div style="font-size: 125%; font: bold;">REPRINT RECEIPT</div>
+                </t>
+               <t t-elif='receipt.bill === true'>
+                    <div style="font-size: 140%; font: bold;">BILL</div>
+                </t>
+               <t t-else="">
+                    <div style="font-size: 140%; font: bold;">RECEIPT</div>
+                </t>
+               <t t-if='receipt.company.contact_address'>
+                    <div><t t-esc='receipt.company.contact_address' /></div>
+                </t>
+               <t t-if='receipt.header_html'>
+                    <t t-raw='receipt.header_html'/>
+                </t>
+               <t t-if='!receipt.header_html and receipt.header'>
+                    <div><t t-esc='receipt.header' /></div>
+                </t>
+               <t t-if='receipt.company.vat'>
+                    <div>VATTIN: <t t-esc='receipt.company.vat'/></div>
+                </t>
+               <t t-if='receipt.cashier'>
+                    <div class='cashier-section'>
+                        <div>Cashier Name: <t t-esc='receipt.cashier'/></div>
+                    </div>
+
+                   <t t-if='receipt.table'>
+                        Table No: <t t-esc='receipt.table'/>
+                    </t>
+                   <t t-if='order.customer_count'>
+                        <div>No Customer: <t t-esc='order.customer_count'/></div>
+                    </t>
+                </t>
+               <div><t t-esc='order.order_ref' /></div>
+               <div><t t-esc='receipt.date.localestring or receipt.order_date' /></div>
+            </div>
+       </t>
+
+       <t t-jquery=".pos-receipt .orderlines" t-operation='replace'>
+           <div style="display: flex;font: bold;font-size: 21px;">
+               <div style="width:30%;">No. Item</div>
+               <div style="flex: 1;text-align: right;">Q-ty</div>
+               <div style="flex: 1;text-align: right;">Price</div>
+               <div style="flex: 1;text-align: right;">Disc(%)</div>
+               <div style="flex: 1;text-align: right;">Amount</div>
+           </div>
+           <hr style="border-top: dotted 1px;"/>
+           <t t-foreach='receipt.orderlines' t-as='line'>
+                <t t-set='simple'
+                   t-value='(line.discount === 0 and line.unit_name === "Units" and line.quantity === 1 and !discount_to_show and !(line.display_discount_policy == "without_discount" &amp;&amp; line.price != line.price_lst))'/>
+               <t t-if='simple'>
+                    <div>
+                        <t t-esc='line.product_name_wrapped[0]'/>
+                        <span t-esc='widget.format_currency_no_symbol(line.price_display)'
+                              class="price_display pos-receipt-right-align"/>
+                    </div>
+               </t>
+               <t t-if='!simple'>
+                   <div style="display: flex; font: bold; font-size: 21px;">
+                       <div style="width:30%;;">
+                           <div t-esc='line.product_name_wrapped'/>
+                           <t t-if="line.glass_discount">
+                              <t t-esc="'With glass discount ' + line.glass_discount + ' unit'"/>
+                          </t>
+                           <t t-if="line.display_discount_policy == 'without_discount' &amp;&amp; line.price != line.price_lst">
+                               <div class="pos-receipt-left-padding">
+                                   <t t-esc="widget.format_currency_no_symbol(line.price_lst)"/>->
+                                   <t t-esc="widget.format_currency_no_symbol(line.price)"/>
+                               </div>
+                            </t>
+                       </div>
+                       <div style="flex:1;text-align:right;">
+                           <t t-esc="Math.round(line.quantity * Math.pow(10, pos.dp['Product Unit of Measure'])) / Math.pow(10, pos.dp['Product Unit of Measure'])"/>
+                           <t t-if='line.unit_name !== "Units"' t-esc='line.unit_name'/>
+                       </div>
+                       <div style="flex:1;text-align:right;">
+                           <t t-esc='widget.format_currency_no_symbol(line.price)'/>
+                       </div>
+                       <div style="flex:1; text-align:right;">
+                           <t t-esc='line.discount'/>
+                       </div>
+                       <div style="flex:1;">
+                           <span class="price_display pos-receipt-right-align">
+                               <t t-esc='widget.format_currency_no_symbol(line.price_display)'/>
+                           </span>
+                       </div>
+                   </div>
+               </t>
+            </t>
+           <hr style="border-top: dotted 1px;"/>
+           <t t-if="receipt.total_quantity">
+               <div style="display: flex;">
+                   <div style="width:30%;">No. Item</div>
+                   <div style="flex: 1;text-align: right;"><t t-esc='receipt.total_quantity'/></div>
+                   <div style="flex: 3;"/>
+                </div>
+           </t>
+           <t t-if='receipt.total_discount'>
+                <div style="display: flex;">
+                    <div style="width:30%;">Discounts</div>
+                    <div style="flex: 3;text-align: right;">
+                        <t t-esc='widget.format_currency(receipt.total_discount)'/>
+                    </div>
+                    <div style="flex: 1;"/>
+
+                </div>
+            </t>
+       </t>
+
+       <t t-jquery=".pos-receipt .receipt-change" t-operation='before'>
+           <t t-if='order.reprint_paymentlines'>
+                <t t-foreach='order.reprint_paymentlines' t-as='line'>
+                    <div>
+                        <t t-esc='line.name'/>
+                        <span t-esc='widget.format_currency_no_symbol(line.amount)' class="pos-receipt-right-align"/>
+                    </div>
+                </t>
+               <br/>
+               <br/>
+            </t>
+       </t>
+
+       <t t-jquery=".pos-receipt .receipt-change" t-operation='replace'>
+           <div class="pos-receipt-amount receipt-change" t-if="order.change or receipt.change">
+                CHANGE
+                <span t-esc='widget.format_currency(order.change or receipt.change)' class="pos-receipt-right-align"/>
+           </div>
+       </t>
+
+       <t t-jquery=".pos-receipt .pos-receipt-order-data" t-operation='replace'/>
+
+       <t t-jquery=".pos-receipt .before-footer" t-operation="replace">
+           <div t-if='receipt.bill === true' class="pos-receipt-center-align">
+                <img t-att-src='receipt.qrcode'/>
+            </div>
+           <div class='before-footer'/>
+       </t>
+
+   </t>
+</templates>
