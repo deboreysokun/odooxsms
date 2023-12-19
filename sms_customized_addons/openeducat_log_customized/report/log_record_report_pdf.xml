@@ -1,0 +1,224 @@
+<odoo>
+    <data>
+        <template id="footer_report">
+            <t t-call="web.html_container">
+                <div class="article o_report_layout_standard">
+                    <t t-raw="0"/>
+                </div>
+                <div class="footer o_standard_footer" style="border-top: 2px solid #000000;">
+                    <p style="color: #0d0b54"><b>Location:</b> Preah Soramarith-Kosamak National Park (Kirirom), Phnom Srouch District, Kampong Speu Province, Kingdom Of Cambodia., 46, Traeng Trayueng</p>
+                </div>
+            </t>
+        </template>
+        <template id="log_report">
+         <t t-call="openeducat_log_customized.footer_report">
+            <style>
+                .font{
+                font-size:18px;
+                font-family:"Helvetica"
+                }
+                @page{
+                size: A4;
+                }
+                table.center {
+                width:80%;
+                margin-left:10%;
+                }
+                td.spacer1{
+                padding-right:320px;
+                }
+                .table.gridtable {
+                font-size:11px;
+                border-width: 1px;
+                border-color: #cccccc;
+                border-collapse: collapse;
+                }
+                table.gridtable th {
+                border-width: 1px;
+                padding: 5px;
+                border-style: solid;
+                border-color: #cccccc;
+                }
+                table.gridtable td {
+                border-width: 1px;
+                padding: 0px;
+                
+                border-style: solid;
+                border-color: #cccccc;
+                }
+                .header-wrapper {
+                    display: flex;
+                    flex-wrap: nowrap;
+                    position: relative;
+                }
+                .img-wrapper {
+                    max-width: 245px;
+                    max-height: 500px;
+                    position: absolute;
+                    top: 0px;
+                    right: 0px;
+                    margin_right: 7px;
+                }
+                .img-wrapper__img {
+                    width: 100%;
+                }
+                .imgkit-wrapper{
+                    max-width: 370px;
+                    max-height: 150px;
+                    margin-left: auto;
+                    margin-right: auto;
+                    padding-top: 0px;
+                    margin-top: -65px;
+                }
+                .imgkit-wrapper__img {
+                    width: 100%;
+                    max-width:370px;
+                    max-height:150px;
+                    
+                }
+                .logo {
+                    max-width:300px;
+                    max-height:300px;
+                    margin-top: 30px;
+                    margin-left: -10px;
+                    margin-right: 150px;
+                    padding-top: 30px;
+                    padding-bottom: 30px;
+                }
+            </style>
+                <t t-foreach="docs" t-as="o">
+                    <div class="font">
+                        <div class="page">
+                            <div class="header-wrapper">
+                                <div class="logo">
+                                    <img class="img-wrapper__img" src="/openeducat_log_customized/static/src/logo1.png" />
+                                </div>
+                                <div class="img-wrapper">
+                                    <img src="/openeducat_log_customized/static/src/nrk1.png" class="img-wrapper__img"/>
+                                </div>
+                                <div>
+                                    <h3 style="text-align: center; color: #0d0b54; margin-top:-10px; padding-top: 0px; font-size: 25px ">
+                                        <b>
+                                            <span>Log Report</span>
+                                        </b>
+                                    </h3>
+                                </div>
+                            </div>
+                            <br/>
+                            <table width="100%">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <b style="color: #0d0b54" >Department:</b>
+                                            <span style="color:#191773" t-esc="department"/>
+                                        </td>
+                                        <td style="text-align: right;">
+                                            <b style="color: #0d0b54;">Semester:</b>
+                                            <span style="color:#191773" t-esc="semester"/>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            <b style="color: #0d0b54;">Section:</b>
+                                            <span t-esc="data['batch_id'][1]" style="color:#191773" />
+                                        </td>
+                                        <td style="text-align: right;">
+                                            <b style="color: #0d0b54;">From:</b>
+                                            <span t-esc="data['start_date']" t-options="{'widget':'date'}" style="color:#191773"/>
+                                        </td>
+                                        
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            <b style="color: #0d0b54;">Subject:</b>
+                                            <span t-esc="data['subject_id'][1]" style="color:#191773" />
+                                        </td>
+                                        <td style="text-align: right;">
+                                            <b style="color: #0d0b54;">To:</b>
+                                            <span t-esc="data['end_date']" t-options="{'widget':'date'}" style="color:#191773" />
+                                        </td>
+                                        
+                                    </tr>
+                                        
+                                    <tr>
+                                        <td>
+                                            <b style="color: #0d0b54;">Faculty:</b>
+                                            <span t-esc="data['faculty_id'][1]" style="color:#191773" />
+                                        </td>
+                                        
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br></br>
+                            <table class="table table-bordered"  width="100%">
+                                <thead class="text-center" style="background-color:#eeeeee; font-size:14px; font-weight:600;">
+                                    <th style="color: #0d0b54; width: 5%">No</th>
+                                    <th style="color: #0d0b54; width: 14%">Date</th>
+                                    <th style="color: #0d0b54; width: 20%">Session Timming</th>
+                                    <th style="color: #0d0b54;">Topic</th>
+                                </thead>
+                                    <tbody>
+                                        <t t-set="num_index" t-value="1"/>
+                                        <t t-foreach="body_data" t-as="rec">
+                                            <tr>
+                                                <td>
+                                                    <span t-esc="num_index" style="color:#191773" ></span>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="rec['attendance_date']" style="color:#191773" />
+                                                </td>
+                                                <td>
+                                                    <span t-esc="rec['name']" style="color:#191773" />
+                                                </td>
+                                                <td>
+                                                    <span t-esc="rec['log_record']" style="color:#191773" />
+                                                </td>  
+                                            </tr>
+                                            <t t-set="num_index" t-value="num_index+1"/>
+                                        </t>
+                                </tbody>
+                                </table>
+
+
+
+
+                            <br></br>
+                            <br></br>
+                            <div class="text-right" style="color: #0d0b54;" >
+                                <span style="color:#191773">Kirirom Institute of Technology, </span>
+                                <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%B/%Y')"/> 
+                                <br></br>
+
+                                <b style="color: #0d0b54;">Generated by</b>
+                                <br></br>
+                                <br></br>
+                                <br></br>
+                                <br></br>
+                                <br></br>
+                                <p t-esc="data['faculty_id'][1]" style="color:#191773"/>
+                            </div>
+
+                            <div class="text-left" style="margin-top: -100px;">
+                                <span style="color:#191773">Kirirom Institute of Technology, </span>
+                                <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%B/%Y')" style="color: #0d0b54;"/> 
+                                <br></br>
+
+                                <b style="color:#191773" >Confirmed by</b>
+                                <br></br>
+                                <br></br>
+                                <br></br>
+                                <br></br>
+                                <br></br>
+                                <p t-esc="data['head_dep_id'][1]" style="color:#191773" />
+                            </div>
+                        </div>    
+                    </div>           
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
+
+
