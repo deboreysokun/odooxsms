@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_log_report_form" model="ir.ui.view">
+            <field name="name">log.record.report.form</field>
+            <field name="model">log.record.report</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Log Record">
+                    <sheet>
+                        <div>
+                            <group colspan="4" cols="4">
+                                <group>
+                                    <field name="course_id"/>
+                                    <field name="faculty_id"/>
+                                </group>
+                                <group>
+                                    <field name="batch_id"/>    
+                                    <field name="subject_id" />    
+                                </group>
+                                <group>
+                                    <field name="start_date"/>   
+                                    <field name="head_dep_id"/> 
+                                       
+                                </group>
+                                <group>
+                                    <field name="end_date"/>   
+                                </group>
+
+                            </group>
+                        </div>
+                    </sheet>
+                    <footer>
+                        <span groups="base.group_user">
+                            <button string="Print" type="object" 
+                                    name="gen_log_report" class="oe_highlight"/>
+                            <button special="cancel" string="Close" type="object"/>
+                        </span>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_open_log_report_view_action">
+            <field name="name">Generate Log Record Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">log.record.report</field>
+            <field name="binding_view_types">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>
