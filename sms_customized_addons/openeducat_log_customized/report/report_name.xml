@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <report id="log_report_pdf"
+                string="Log Report"
+                model="log.record.report" report_type="qweb-pdf"
+                file="openeducat_log_customized.log_report"
+                name="openeducat_log_customized.log_report"
+                paperformat="paperformat_log_report"
+                menu="False"/>
+    </data>
+</odoo>

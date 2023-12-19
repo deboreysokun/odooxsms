@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <menuitem id="menu_op_log_record_customized"
+                  name="Log Report"
+                  parent="openeducat_core.menu_op_faculty_root"
+                  sequence="60"
+                  action="act_open_log_report_view_action"
+                  groups="openeducat_core.group_op_back_office_admin,openeducat_core.group_op_back_office,openeducat_core.group_op_faculty"/>
+    </data>
+</odoo>
+
